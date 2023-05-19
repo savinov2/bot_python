@@ -1,0 +1,129 @@
+INFO     [2023-05-19 23:43:05,451] Bot: sda [@sfedunotebot]
+INFO     [2023-05-19 23:43:05,451] Start polling.
+INFO     [2023-05-19 23:43:12,414] User id=1328821049 started user_full_name='Леонид' Fri May 19 23:43:12 2023
+INFO     [2023-05-19 23:43:13,438] User id=1328821049 started user_full_name='Леонид' Fri May 19 23:43:13 2023
+INFO     [2023-05-19 23:52:00,290] User id=1328821049 started user_full_name='Леонид' Fri May 19 23:52:00 2023
+INFO     [2023-05-19 23:52:03,013] User id=1328821049 started user_full_name='Леонид' Fri May 19 23:52:03 2023
+INFO     [2023-05-20 00:05:19,021] User id=1328821049 started user_full_name='Леонид' Sat May 20 00:05:19 2023
+INFO     [2023-05-20 00:08:15,352] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:08:15,352] Start polling.
+INFO     [2023-05-20 00:08:19,122] User id=1328821049 started user_full_name='Леонид' Sat May 20 00:08:19 2023
+INFO     [2023-05-20 00:08:32,068] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:08:32,068] Start polling.
+INFO     [2023-05-20 00:08:37,394] User id=1328821049 started user_full_name='Леонид' Sat May 20 00:08:37 2023
+INFO     [2023-05-20 00:15:09,882] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:15:09,882] Start polling.
+INFO     [2023-05-20 00:19:33,610] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:19:33,610] Start polling.
+INFO     [2023-05-20 00:20:42,896] User id=1328821049 started user_full_name='Леонид' Sat May 20 00:20:42 2023
+INFO     [2023-05-20 00:53:30,577] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:53:30,578] Start polling.
+INFO     [2023-05-20 00:53:42,785] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:53:42,785] Task exception was never retrieved
+future: <Task finished name='Task-7' coro=<Dispatcher._process_polling_updates() done, defined at /home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=NameError("name 'kb' is not defined")>
+Traceback (most recent call last):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/Рабочий стол/Вуз/bot_python/main.py", line 65, in sart
+    await message.answer('Добро пожаловать в Админ-Панель! Выберите действие на клавиатуре', reply_markup=kb)
+NameError: name 'kb' is not defined
+INFO     [2023-05-20 00:53:44,398] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:53:44,398] Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=NameError("name 'kb' is not defined")>
+Traceback (most recent call last):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/Рабочий стол/Вуз/bot_python/main.py", line 65, in sart
+    await message.answer('Добро пожаловать в Админ-Панель! Выберите действие на клавиатуре', reply_markup=kb)
+NameError: name 'kb' is not defined
+INFO     [2023-05-20 00:54:11,477] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:54:11,477] Start polling.
+INFO     [2023-05-20 00:54:11,610] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:54:11,611] Task exception was never retrieved
+future: <Task finished name='Task-7' coro=<Dispatcher._process_polling_updates() done, defined at /home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=NameError("name 'kb' is not defined")>
+Traceback (most recent call last):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/Рабочий стол/Вуз/bot_python/main.py", line 65, in sart
+    await message.answer('Добро пожаловать в Админ-Панель! Выберите действие на клавиатуре', reply_markup=kb)
+NameError: name 'kb' is not defined
+INFO     [2023-05-20 00:54:15,734] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:54:15,735] Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=NameError("name 'kb' is not defined")>
+Traceback (most recent call last):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/Рабочий стол/Вуз/bot_python/main.py", line 65, in sart
+    await message.answer('Добро пожаловать в Админ-Панель! Выберите действие на клавиатуре', reply_markup=kb)
+NameError: name 'kb' is not defined
+INFO     [2023-05-20 00:56:24,239] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:56:24,239] Task exception was never retrieved
+future: <Task finished name='Task-19' coro=<Dispatcher._process_polling_updates() done, defined at /home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=NameError("name 'kb' is not defined")>
+Traceback (most recent call last):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/savinov2/.local/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 117, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/savinov2/Рабочий стол/Вуз/bot_python/main.py", line 65, in sart
+    await message.answer('Добро пожаловать в Админ-Панель! Выберите действие на клавиатуре', reply_markup=kb_admin)
+NameError: name 'kb' is not defined
+INFO     [2023-05-20 00:56:31,971] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 00:56:31,971] Start polling.
+INFO     [2023-05-20 00:56:34,798] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 00:56:36,531] Error while fetching applications: 'NoneType' object has no attribute 'cursor'
+ERROR    [2023-05-20 00:57:58,746] Error while fetching applications: 'NoneType' object has no attribute 'cursor'
+INFO     [2023-05-20 00:58:35,020] Stop polling...
+WARNING  [2023-05-20 00:58:35,020] Goodbye!
+INFO     [2023-05-20 01:02:03,219] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 01:02:03,219] Start polling.
+INFO     [2023-05-20 01:02:09,914] ADMIN id=1328821049 started user_full_name='Леонид'
+INFO     [2023-05-20 01:02:32,568] Stop polling...
+WARNING  [2023-05-20 01:02:32,569] Goodbye!
+INFO     [2023-05-20 01:04:08,186] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 01:04:08,186] Start polling.
+INFO     [2023-05-20 01:04:11,105] ADMIN id=1328821049 started user_full_name='Леонид'
+ERROR    [2023-05-20 01:04:13,222] Error while fetching applications: ОШИБКА:  столбец "состояние" не существует
+LINE 1: SELECT * FROM advisement WHERE состояние = false
+                                       ^
+
+INFO     [2023-05-20 01:05:43,024] Bot: sda [@sfedunotebot]
+INFO     [2023-05-20 01:05:43,025] Start polling.
+INFO     [2023-05-20 01:05:53,744] ADMIN id=1328821049 started user_full_name='Леонид'
