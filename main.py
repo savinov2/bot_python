@@ -11,13 +11,15 @@ import logging
 
 TOKEN = '5817538532:AAEjWn_okKQe0C9I5nwsV_pbBYXDE5BdObI'
 
-ADMIN = 22
+ADMIN = 1328821049
 
 kb_admin = types.ReplyKeyboardMarkup(resize_keyboard=True)
 kb_admin.add(types.InlineKeyboardButton(text="Показать заявки"))
+kb_admin.add(types.InlineKeyboardButton(text="Одобрить заявку"))
 
 kb_user = types.ReplyKeyboardMarkup(resize_keyboard=True)
 kb_user.add(types.InlineKeyboardButton(text="Создать заявку"))
+kb_user.add(types.InlineKeyboardButton(text="Мои заявки"))
 
 
 logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.INFO, filename = u'log/mylog.log')
@@ -28,6 +30,7 @@ dp = Dispatcher(bot=bot, storage=storage)
 
 class dialog(StatesGroup):
     creating_application = State()
+    approving_application = State()
 
 
 # class dialog(StatesGroup):
@@ -36,7 +39,8 @@ class dialog(StatesGroup):
 #   whitelist = State()
 
 # CREATE TABLE advisement (
-#      id SERIAL PRIMARY KEY,
+#      id serial primary key,
+#      user_id INT NOT NULL,
 #      state BOOLEAN DEFAULT FALSE,
 #      name VARCHAR(50),
 #      surname VARCHAR(50),
@@ -93,7 +97,7 @@ async def show_applications(message: types.Message):
         if len(applications) > 0:
             response = "Список заявок:\n"
             for app in applications:
-                response += f"ID: {app[0]}, Состояние: {app[1]}, Имя: {app[2]}, Фамилия: {app[3]}, Группа: {app[4]}, Курс: {app[5]}\n"
+                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, Группа: {app[5]}, Курс: {app[6]}\n"
         else:
             response = "Заявок пока нет."
 
@@ -111,12 +115,13 @@ async def create_application(message: types.Message, state: FSMContext):
 @dp.message_handler(state=dialog.creating_application)
 async def process_application_data(message: types.Message, state: FSMContext):
     try:
-        data = message.text.split(',')
+        data = message.text.split(' ')
         name = data[0].strip()
         surname = data[1].strip()
         grp = data[2].strip()
         course = data[3].strip()
 
+        id = message.from_user.id
         conn = db_connect()
         if conn is None:
             await message.answer("Ошибка подключения к базе данных.")
@@ -124,8 +129,8 @@ async def process_application_data(message: types.Message, state: FSMContext):
 
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO advisement (state, name, surname, grp, course) VALUES (FALSE, %s, %s, %s, %s)",
-            (name, surname, grp, course)
+            "INSERT INTO advisement (user_id, state, name, surname, grp, course) VALUES (%s, FALSE, %s, %s, %s, %s)",
+            (id, name, surname, grp, course)
         )
         conn.commit()
         cursor.close()
@@ -140,6 +145,82 @@ async def process_application_data(message: types.Message, state: FSMContext):
 
         await state.finish()  # Завершаем состояние dialog.creating_application
     
+    
+@dp.message_handler(text="Мои заявки")
+async def show_user_applications(message: types.Message):
+    try:
+        user_id = message.from_user.id
+
+        conn = db_connect()
+        if conn is None:
+            await message.answer("Ошибка подключения к базе данных.")
+            return
+
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM advisement WHERE user_id = %s and state = FALSE", (user_id,))
+        applications = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        if len(applications) > 0:
+            response = "Ваши заявки:\n"
+            for app in applications:
+                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, Группа: {app[5]}, Курс: {app[6]}\n"
+        else:
+            response = "У вас пока нет заявок."
+
+        await message.answer(response)
+    except Exception as e:
+        logging.error(f"Error while fetching user applications: {str(e)}")
+        await message.answer("Произошла ошибка при получении ваших заявок.")   
+        
+        
+        
+@dp.message_handler(text="Одобрить заявку", user_id=ADMIN)
+async def approve_application(message: types.Message):
+    await message.answer("Введите ID заявки, которую вы хотите одобрить:")
+    await dialog.approving_application.set()
+
+@dp.message_handler(state=dialog.approving_application, user_id=ADMIN)
+async def process_approval(message: types.Message, state: FSMContext):
+    try:
+        application_id = int(message.text)
+
+        conn = db_connect()
+        if conn is None:
+            await message.answer("Ошибка подключения к базе данных.")
+            return
+
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM advisement WHERE id = %s", (application_id,))
+        application = cursor.fetchone()
+
+        if application is None:
+            await message.answer("Заявка с указанным ID не найдена.")
+            return
+
+        user_id = application[1]
+        name = application[3]
+        surname = application[4]
+
+        # Обновляем состояние заявки в базе данных на "одобрено"
+        cursor.execute("UPDATE advisement SET state = TRUE WHERE id = %s", (application_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        await message.answer("Заявка успешно одобрена.")
+
+        # Отправляем уведомление пользователю о готовности справки
+        await bot.send_message(user_id, f"Здравствуйте, {name} {surname}! Ваша справка готова.")
+
+    except ValueError:
+        await message.answer("Пожалуйста, введите корректный ID заявки.")
+    except Exception as e:
+        logging.error(f"Error while processing application approval: {str(e)}")
+        await message.answer("Произошла ошибка при одобрении заявки.")
+
+    await state.finish()  # Завершаем состояние dialog.approving_application
     
 if __name__ == '__main__':
     executor.start_polling(dp)
