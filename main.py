@@ -46,6 +46,7 @@ class dialog(StatesGroup):
 #      surname VARCHAR(50),
 #      grp VARCHAR(20),
 #      course VARCHAR(20)
+
 # );
 
 # # получение объекта курсора
@@ -97,7 +98,9 @@ async def show_applications(message: types.Message):
         if len(applications) > 0:
             response = "Список заявок:\n"
             for app in applications:
-                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, Группа: {app[5]}, Курс: {app[6]}\n"
+                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, " \
+                            f"Отчество: {app[5]}, Группа: {app[6]}, Курс: {app[7]}, Форма справки: {app[8]}, " \
+                            f"Телефон: {app[9]}\n \n"
         else:
             response = "Заявок пока нет."
 
@@ -109,7 +112,8 @@ async def show_applications(message: types.Message):
 @dp.message_handler(text="Создать заявку", state="*")
 async def create_application(message: types.Message, state: FSMContext):
     await message.answer("Введите данные для заявки.")
-    await message.answer("В таком формате (Имя,Фамилия,Группа,Курс).")
+    await message.answer("В таком формате (Имя Фамилия Отчество Группа Курс Вид_Справки номер_телефона).")
+    await message.answer("Пример 'Иван Иванов Иванович 6пи 1 военкомат 89999999999'.")
     await dialog.creating_application.set()
 
 @dp.message_handler(state=dialog.creating_application)
@@ -118,8 +122,12 @@ async def process_application_data(message: types.Message, state: FSMContext):
         data = message.text.split(' ')
         name = data[0].strip()
         surname = data[1].strip()
-        grp = data[2].strip()
-        course = data[3].strip()
+        patronymic = data[2].strip()
+        grp = data[3].strip()
+        course = data[4].strip()
+        certificate_form = data[5].strip()
+        phone = data[6].strip()
+
 
         id = message.from_user.id
         conn = db_connect()
@@ -129,9 +137,9 @@ async def process_application_data(message: types.Message, state: FSMContext):
 
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO advisement (user_id, state, name, surname, grp, course) VALUES (%s, FALSE, %s, %s, %s, %s)",
-            (id, name, surname, grp, course)
-        )
+                "INSERT INTO advisement (user_id, state, name, surname, patronymic, grp, course, certificate_form, phone) "
+                "VALUES (%s, FALSE, %s, %s, %s, %s, %s, %s, %s)",
+                (id, name, surname, patronymic, grp, course, certificate_form, phone))
         conn.commit()
         cursor.close()
         conn.close()
@@ -165,7 +173,9 @@ async def show_user_applications(message: types.Message):
         if len(applications) > 0:
             response = "Ваши заявки:\n"
             for app in applications:
-                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, Группа: {app[5]}, Курс: {app[6]}\n"
+                response += f"ID: {app[0]}, user_id: {app[1]}, Состояние: {app[2]}, Имя: {app[3]}, Фамилия: {app[4]}, " \
+                            f"Отчество: {app[5]}, Группа: {app[6]}, Курс: {app[7]}, Форма справки: {app[8]}, " \
+                            f"Телефон: {app[9]}\n \n"
         else:
             response = "У вас пока нет заявок."
 
