@@ -32,30 +32,18 @@ class dialog(StatesGroup):
     creating_application = State()
     approving_application = State()
 
-
-# class dialog(StatesGroup):
-# 	spam = State()
-#   blacklist = State()
-#   whitelist = State()
-
 # CREATE TABLE advisement (
-#      id serial primary key,
-#      user_id INT NOT NULL,
-#      state BOOLEAN DEFAULT FALSE,
-#      name VARCHAR(50),
-#      surname VARCHAR(50),
-#      grp VARCHAR(20),
-#      course VARCHAR(20)
-
+#     id SERIAL PRIMARY KEY,
+#     user_id INT NOT NULL,
+#     state BOOLEAN DEFAULT FALSE,
+#     name VARCHAR(50),
+#     surname VARCHAR(50),
+#     patronymic VARCHAR(50),
+#     grp VARCHAR(20),
+#     course VARCHAR(20),
+#     certificate_form VARCHAR(50),
+#     phone VARCHAR(20)
 # );
-
-# # получение объекта курсора
-# cursor = conn.cursor()
-# # Получаем список всех пользователей
-# cursor.execute('SELECT * FROM users')
-# all_users = cursor.fetchall()
-# cursor.close() # закрываем курсор
-# conn.close() # закрываем соединение
     
 import psycopg2
 def db_connect():
