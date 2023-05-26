@@ -16,10 +16,11 @@
 
    ```shell
    git clone https://github.com/your-username/your-repo.git
+   ```
    
 2.Создайте файл config.ini и заполните его данными:
 
-   ```shell
+   ```ini
       [Settings]
       TOKEN=your-token
       ADMIN=your-admin-id
@@ -28,9 +29,15 @@
       DB_PASSWORD=your-db-password
       DB_HOST=your-db-host
       DB_PORT=your-db-port
-
+   ```
    
 3.Запустите бот:
 
    ```shell
    python main.py
+   ```
+   
+**##Использование**
+Бот будет слушать и обрабатывать сообщения в чате, на который он был добавлен.
+Отправьте команду /help, чтобы узнать доступные команды и их описание.
+Бот подключится к базе данных и будет использовать ее для хранения данных и выполнения операций.
